@@ -48,7 +48,8 @@ class Expense {
 public class ExpenseReport {
     public void printReport(List<Expense> expenses) {
         ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
-        System.out.println(generateReport(expenses, new Date(), expensesCalculation));
+        String reportContent = generateReport(expenses, new Date(), expensesCalculation);
+        System.out.println(reportContent);
     }
 
     public String generateReport(List<Expense> expenses, Date reportDate, ExpensesCalculation expensesCalculation) {

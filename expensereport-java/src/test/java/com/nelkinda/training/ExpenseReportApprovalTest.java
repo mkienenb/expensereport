@@ -29,7 +29,8 @@ public class ExpenseReportApprovalTest {
         Date reportDate = Date.from(reportLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         ExpenseReport app = new ExpenseReport();
-        app.parameterizedPrintReport(expenses, reportDate, reportPrintStream);
+        ExpenseReport.ExpensesCalculation expensesCalculation = app.calculateExpenses(expenses);
+        app.parameterizedPrintReport(expenses, reportDate, reportPrintStream, expensesCalculation);
 
         String output = fakeOutput.toString();
 

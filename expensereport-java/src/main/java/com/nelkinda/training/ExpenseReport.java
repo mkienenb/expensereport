@@ -48,11 +48,11 @@ class Expense {
 
 public class ExpenseReport {
     public void printReport(List<Expense> expenses) {
-        parameterizedPrintReport(expenses, new Date(), System.out);
+        ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
+        parameterizedPrintReport(expenses, new Date(), System.out, expensesCalculation);
     }
 
-    public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream) {
-        ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
+    public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream, ExpensesCalculation expensesCalculation) {
 
         reportPrintStream.println("Expenses " + reportDate);
         for (Expense expense : expenses) {
@@ -64,7 +64,7 @@ public class ExpenseReport {
         reportPrintStream.println("Total expenses: " + expensesCalculation.total);
     }
 
-    private ExpensesCalculation calculateExpenses(List<Expense> expenses) {
+    public ExpensesCalculation calculateExpenses(List<Expense> expenses) {
         ExpensesCalculation expensesCalculation = new ExpensesCalculation();
         for (Expense expense : expenses) {
             if (expense.type.isMealExpense()) {

@@ -66,7 +66,9 @@ public class ExpenseReport {
             }
 
             expensesCalculation.total += expense.amount;
+        }
 
+        for (Expense expense : expenses) {
             String expenseName = expense.type.reportName();
 
             String mealOverExpensesMarker = expense.isOverMealExpenseAmount() ? "X" : " ";

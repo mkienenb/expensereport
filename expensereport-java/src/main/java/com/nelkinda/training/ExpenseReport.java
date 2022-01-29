@@ -8,17 +8,19 @@ enum ExpenseCategory {
     MEAL, OTHER
 }
 enum ExpenseType {
-    DINNER (ExpenseCategory.MEAL, 5000),
-    BREAKFAST (ExpenseCategory.MEAL, 1000),
-    CAR_RENTAL (ExpenseCategory.OTHER, Integer.MAX_VALUE)
+    DINNER ("Dinner", ExpenseCategory.MEAL, 5000),
+    BREAKFAST ("Breakfast", ExpenseCategory.MEAL, 1000),
+    CAR_RENTAL ("Car Rental", ExpenseCategory.OTHER, Integer.MAX_VALUE)
     ;
 
     private final ExpenseCategory expenseCategory;
     private final int overExpenseAmount;
+    private String reportName;
 
-    private ExpenseType(ExpenseCategory expenseCategory, int overExpenseAmount) {
+    private ExpenseType(String name, ExpenseCategory expenseCategory, int overExpenseAmount) {
         this.expenseCategory = expenseCategory;
         this.overExpenseAmount = overExpenseAmount;
+        this.reportName = name;
     }
 
     public boolean isMealExpense() {
@@ -28,6 +30,11 @@ enum ExpenseType {
     public int getOverExpenseAmount() {
         return overExpenseAmount;
     }
+
+    public String reportName() {
+        return reportName;
+    }
+
 }
 
 class Expense {
@@ -51,18 +58,7 @@ public class ExpenseReport {
                 mealExpenses += expense.amount;
             }
 
-            String expenseName = "";
-            switch (expense.type) {
-                case DINNER:
-                    expenseName = "Dinner";
-                    break;
-                case BREAKFAST:
-                    expenseName = "Breakfast";
-                    break;
-                case CAR_RENTAL:
-                    expenseName = "Car Rental";
-                    break;
-            }
+            String expenseName = expense.type.reportName();
 
             String mealOverExpensesMarker = expense.type.isMealExpense() && expense.amount > expense.type.getOverExpenseAmount() ? "X" : " ";
 

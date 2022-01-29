@@ -65,6 +65,14 @@ public class ExpenseReportApprovalTest {
             expenses.add(expense);
             testTemplatePrintReportForExpenses(expenses);
         }
+
+        @Test
+        void if_there_is_one_lunch_expense_item_for_2200() {
+            Expense expense = createExpense(ExpenseType.LUNCH, 2200);
+            List<Expense> expenses = new ArrayList<>();
+            expenses.add(expense);
+            testTemplatePrintReportForExpenses(expenses);
+        }
     }
 
     @Nested
@@ -82,6 +90,14 @@ public class ExpenseReportApprovalTest {
         @Test
         void if_there_is_one_breakfast_expense_item_for_900() {
             Expense expense = createExpense(ExpenseType.BREAKFAST, 900);
+            List<Expense> expenses = new ArrayList<>();
+            expenses.add(expense);
+            testTemplatePrintReportForExpenses(expenses);
+        }
+
+        @Test
+        void if_there_is_one_lunch_expense_item_for_1500() {
+            Expense expense = createExpense(ExpenseType.LUNCH, 1500);
             List<Expense> expenses = new ArrayList<>();
             expenses.add(expense);
             testTemplatePrintReportForExpenses(expenses);

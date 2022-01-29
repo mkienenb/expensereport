@@ -1,0 +1,4 @@
+Expenses Sat Jan 29 00:00:00 EST 2022
+Lunch	1500	 
+Meal expenses: 1500
+Total expenses: 1500

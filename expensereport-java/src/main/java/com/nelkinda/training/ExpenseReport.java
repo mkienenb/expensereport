@@ -1,6 +1,5 @@
 package com.nelkinda.training;
 
-import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
 
@@ -49,10 +48,10 @@ class Expense {
 public class ExpenseReport {
     public void printReport(List<Expense> expenses) {
         ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
-        parameterizedPrintReport(expenses, new Date(), System.out, expensesCalculation);
+        System.out.println(generateReport(expenses, new Date(), expensesCalculation));
     }
 
-    public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream, ExpensesCalculation expensesCalculation) {
+    public String generateReport(List<Expense> expenses, Date reportDate, ExpensesCalculation expensesCalculation) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("Expenses ");
@@ -76,7 +75,7 @@ public class ExpenseReport {
         stringBuilder.append("Total expenses: ");
         stringBuilder.append(expensesCalculation.total);
 
-        reportPrintStream.println(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 
     public ExpensesCalculation calculateExpenses(List<Expense> expenses) {

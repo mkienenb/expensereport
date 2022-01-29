@@ -4,7 +4,6 @@ import org.approvaltests.Approvals;
 import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,27 +11,20 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
 @UseReporter(DiffReporter.class)
 @DisplayName("ExpenseReport Approval Tests")
 public class ExpenseReportApprovalTest {
 
     private void testTemplatePrintReportForExpenses(List<Expense> expenses) {
-        ByteArrayOutputStream fakeOutput = new ByteArrayOutputStream();
-        PrintStream reportPrintStream = new PrintStream(fakeOutput);
-
         LocalDate reportLocalDate = LocalDate.of(2022, Month.JANUARY, 29);
         Date reportDate = Date.from(reportLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         ExpenseReport app = new ExpenseReport();
         ExpenseReport.ExpensesCalculation expensesCalculation = app.calculateExpenses(expenses);
-        app.parameterizedPrintReport(expenses, reportDate, reportPrintStream, expensesCalculation);
-
-        String output = fakeOutput.toString();
+        String output = app.generateReport(expenses, reportDate, expensesCalculation);
 
         Approvals.verify(output);
     }

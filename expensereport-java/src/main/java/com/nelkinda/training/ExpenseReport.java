@@ -46,6 +46,11 @@ class Expense {
 }
 
 public class ExpenseReport {
+    private static class ExpensesCalculation {
+        int total = 0;
+        int mealExpenses = 0;
+    }
+
     public void printReport(List<Expense> expenses) {
         Date reportDate = new Date();
         String reportContent = generateReportContent(expenses, reportDate);
@@ -55,6 +60,17 @@ public class ExpenseReport {
     public String generateReportContent(List<Expense> expenses, Date reportDate) {
         ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
         return generateReport(expenses, reportDate, expensesCalculation);
+    }
+
+    private ExpensesCalculation calculateExpenses(List<Expense> expenses) {
+        ExpensesCalculation expensesCalculation = new ExpensesCalculation();
+        for (Expense expense : expenses) {
+            if (expense.type.isMealExpense()) {
+                expensesCalculation.mealExpenses += expense.amount;
+            }
+            expensesCalculation.total += expense.amount;
+        }
+        return expensesCalculation;
     }
 
     private String generateReport(List<Expense> expenses, Date reportDate, ExpensesCalculation expensesCalculation) {
@@ -82,21 +98,5 @@ public class ExpenseReport {
         stringBuilder.append(expensesCalculation.total);
 
         return stringBuilder.toString();
-    }
-
-    public ExpensesCalculation calculateExpenses(List<Expense> expenses) {
-        ExpensesCalculation expensesCalculation = new ExpensesCalculation();
-        for (Expense expense : expenses) {
-            if (expense.type.isMealExpense()) {
-                expensesCalculation.mealExpenses += expense.amount;
-            }
-            expensesCalculation.total += expense.amount;
-        }
-        return expensesCalculation;
-    }
-
-    static class ExpensesCalculation {
-        int total = 0;
-        int mealExpenses = 0;
     }
 }

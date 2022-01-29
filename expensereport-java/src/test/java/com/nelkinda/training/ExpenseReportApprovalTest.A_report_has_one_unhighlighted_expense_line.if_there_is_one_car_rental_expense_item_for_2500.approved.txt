@@ -1,0 +1,4 @@
+Expenses Sat Jan 29 00:00:00 EST 2022
+Car Rental	2500	 
+Meal expenses: 0
+Total expenses: 2500

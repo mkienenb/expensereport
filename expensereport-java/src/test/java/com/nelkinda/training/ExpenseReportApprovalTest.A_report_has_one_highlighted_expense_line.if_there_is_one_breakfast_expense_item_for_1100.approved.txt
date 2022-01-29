@@ -1,0 +1,4 @@
+Expenses Sat Jan 29 00:00:00 EST 2022
+Breakfast	1100	X
+Meal expenses: 1100
+Total expenses: 1100

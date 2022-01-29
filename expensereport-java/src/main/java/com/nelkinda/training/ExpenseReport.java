@@ -4,8 +4,30 @@ import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
 
+enum ExpenseCategory {
+    MEAL, OTHER
+}
 enum ExpenseType {
-    DINNER, BREAKFAST, CAR_RENTAL
+    DINNER (ExpenseCategory.MEAL, 5000),
+    BREAKFAST (ExpenseCategory.MEAL, 1000),
+    CAR_RENTAL (ExpenseCategory.OTHER, Integer.MAX_VALUE)
+    ;
+
+    private final ExpenseCategory expenseCategory;
+    private final int overExpenseAmount;
+
+    private ExpenseType(ExpenseCategory expenseCategory, int overExpenseAmount) {
+        this.expenseCategory = expenseCategory;
+        this.overExpenseAmount = overExpenseAmount;
+    }
+
+    public boolean isMealExpense() {
+        return ExpenseCategory.MEAL == expenseCategory;
+    }
+
+    public int getOverExpenseAmount() {
+        return overExpenseAmount;
+    }
 }
 
 class Expense {
@@ -25,7 +47,7 @@ public class ExpenseReport {
         reportPrintStream.println("Expenses " + reportDate);
 
         for (Expense expense : expenses) {
-            if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
+            if (expense.type.isMealExpense()) {
                 mealExpenses += expense.amount;
             }
 
@@ -42,7 +64,7 @@ public class ExpenseReport {
                     break;
             }
 
-            String mealOverExpensesMarker = expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000 ? "X" : " ";
+            String mealOverExpensesMarker = expense.type.isMealExpense() && expense.amount > expense.type.getOverExpenseAmount() ? "X" : " ";
 
             reportPrintStream.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
 

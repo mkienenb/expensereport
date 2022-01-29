@@ -1,5 +1,6 @@
 package com.nelkinda.training;
 
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +15,14 @@ class Expense {
 
 public class ExpenseReport {
     public void printReport(List<Expense> expenses) {
+        parameterizedPrintReport(expenses, new Date(), System.out);
+    }
+
+    public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream) {
         int total = 0;
         int mealExpenses = 0;
 
-        System.out.println("Expenses " + new Date());
+        reportPrintStream.println("Expenses " + reportDate);
 
         for (Expense expense : expenses) {
             if (expense.type == ExpenseType.DINNER || expense.type == ExpenseType.BREAKFAST) {
@@ -39,12 +44,12 @@ public class ExpenseReport {
 
             String mealOverExpensesMarker = expense.type == ExpenseType.DINNER && expense.amount > 5000 || expense.type == ExpenseType.BREAKFAST && expense.amount > 1000 ? "X" : " ";
 
-            System.out.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+            reportPrintStream.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
 
             total += expense.amount;
         }
 
-        System.out.println("Meal expenses: " + mealExpenses);
-        System.out.println("Total expenses: " + total);
+        reportPrintStream.println("Meal expenses: " + mealExpenses);
+        reportPrintStream.println("Total expenses: " + total);
     }
 }

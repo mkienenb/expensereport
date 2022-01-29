@@ -57,9 +57,9 @@ public class ExpenseReport {
     }
 
     public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream) {
-        reportPrintStream.println("Expenses " + reportDate);
-
         ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
+
+        reportPrintStream.println("Expenses " + reportDate);
 
         for (Expense expense : expenses) {
             String expenseName = expense.type.reportName();

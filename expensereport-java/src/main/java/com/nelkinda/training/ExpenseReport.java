@@ -9,6 +9,7 @@ enum ExpenseCategory {
 
 enum ExpenseType {
     DINNER("Dinner", ExpenseCategory.MEAL, 5000),
+    LUNCH("Lunch", ExpenseCategory.MEAL, 2000),
     BREAKFAST("Breakfast", ExpenseCategory.MEAL, 1000),
     CAR_RENTAL("Car Rental", ExpenseCategory.OTHER, Integer.MAX_VALUE);
 

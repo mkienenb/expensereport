@@ -23,8 +23,7 @@ public class ExpenseReportApprovalTest {
         Date reportDate = Date.from(reportLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         ExpenseReport app = new ExpenseReport();
-        ExpenseReport.ExpensesCalculation expensesCalculation = app.calculateExpenses(expenses);
-        String output = app.generateReport(expenses, reportDate, expensesCalculation);
+        String output = app.generateReportContent(expenses, reportDate);
 
         Approvals.verify(output);
     }

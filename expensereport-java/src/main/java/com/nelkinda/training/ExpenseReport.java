@@ -47,12 +47,18 @@ class Expense {
 
 public class ExpenseReport {
     public void printReport(List<Expense> expenses) {
-        ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
-        String reportContent = generateReport(expenses, new Date(), expensesCalculation);
+        Date reportDate = new Date();
+        String reportContent = generateReportContent(expenses, reportDate);
         System.out.println(reportContent);
     }
 
-    public String generateReport(List<Expense> expenses, Date reportDate, ExpensesCalculation expensesCalculation) {
+    public String generateReportContent(List<Expense> expenses, Date reportDate) {
+        ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
+        String reportContent = generateReport(expenses, reportDate, expensesCalculation);
+        return reportContent;
+    }
+
+    private String generateReport(List<Expense> expenses, Date reportDate, ExpensesCalculation expensesCalculation) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("Expenses ");

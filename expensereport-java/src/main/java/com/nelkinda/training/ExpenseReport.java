@@ -40,6 +40,10 @@ enum ExpenseType {
 class Expense {
     ExpenseType type;
     int amount;
+
+    public boolean isOverMealExpenseAmount() {
+        return type.isMealExpense() && amount > type.getOverExpenseAmount();
+    }
 }
 
 public class ExpenseReport {
@@ -60,7 +64,7 @@ public class ExpenseReport {
 
             String expenseName = expense.type.reportName();
 
-            String mealOverExpensesMarker = expense.type.isMealExpense() && expense.amount > expense.type.getOverExpenseAmount() ? "X" : " ";
+            String mealOverExpensesMarker = expense.isOverMealExpenseAmount() ? "X" : " ";
 
             reportPrintStream.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
 

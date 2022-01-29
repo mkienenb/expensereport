@@ -59,14 +59,7 @@ public class ExpenseReport {
     public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream) {
         reportPrintStream.println("Expenses " + reportDate);
 
-        ExpensesCalculation expensesCalculation = new ExpensesCalculation();
-        for (Expense expense : expenses) {
-            if (expense.type.isMealExpense()) {
-                expensesCalculation.mealExpenses += expense.amount;
-            }
-
-            expensesCalculation.total += expense.amount;
-        }
+        ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
 
         for (Expense expense : expenses) {
             String expenseName = expense.type.reportName();
@@ -78,5 +71,17 @@ public class ExpenseReport {
 
         reportPrintStream.println("Meal expenses: " + expensesCalculation.mealExpenses);
         reportPrintStream.println("Total expenses: " + expensesCalculation.total);
+    }
+
+    private ExpensesCalculation calculateExpenses(List<Expense> expenses) {
+        ExpensesCalculation expensesCalculation = new ExpensesCalculation();
+        for (Expense expense : expenses) {
+            if (expense.type.isMealExpense()) {
+                expensesCalculation.mealExpenses += expense.amount;
+            }
+
+            expensesCalculation.total += expense.amount;
+        }
+        return expensesCalculation;
     }
 }

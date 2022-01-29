@@ -53,15 +53,30 @@ public class ExpenseReport {
     }
 
     public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream, ExpensesCalculation expensesCalculation) {
+        StringBuilder stringBuilder = new StringBuilder();
 
-        reportPrintStream.println("Expenses " + reportDate);
+        stringBuilder.append("Expenses ");
+        stringBuilder.append(reportDate);
+        stringBuilder.append("\n");
+
         for (Expense expense : expenses) {
             String expenseName = expense.type.reportName();
             String mealOverExpensesMarker = expense.isOverMealExpenseAmount() ? "X" : " ";
-            reportPrintStream.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
+            stringBuilder.append(expenseName);
+            stringBuilder.append("\t");
+            stringBuilder.append(expense.amount);
+            stringBuilder.append("\t");
+            stringBuilder.append(mealOverExpensesMarker);
+            stringBuilder.append("\n");
         }
-        reportPrintStream.println("Meal expenses: " + expensesCalculation.mealExpenses);
-        reportPrintStream.println("Total expenses: " + expensesCalculation.total);
+        stringBuilder.append("Meal expenses: ");
+        stringBuilder.append(expensesCalculation.mealExpenses);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Total expenses: ");
+        stringBuilder.append(expensesCalculation.total);
+
+        reportPrintStream.println(stringBuilder.toString());
     }
 
     public ExpensesCalculation calculateExpenses(List<Expense> expenses) {

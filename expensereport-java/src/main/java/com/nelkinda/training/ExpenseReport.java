@@ -51,18 +51,21 @@ public class ExpenseReport {
         parameterizedPrintReport(expenses, new Date(), System.out);
     }
 
-    public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream) {
+    static class ExpensesCalculation {
         int total = 0;
         int mealExpenses = 0;
+    }
 
+    public void parameterizedPrintReport(List<Expense> expenses, Date reportDate, PrintStream reportPrintStream) {
         reportPrintStream.println("Expenses " + reportDate);
 
+        ExpensesCalculation expensesCalculation = new ExpensesCalculation();
         for (Expense expense : expenses) {
             if (expense.type.isMealExpense()) {
-                mealExpenses += expense.amount;
+                expensesCalculation.mealExpenses += expense.amount;
             }
 
-            total += expense.amount;
+            expensesCalculation.total += expense.amount;
 
             String expenseName = expense.type.reportName();
 
@@ -71,7 +74,7 @@ public class ExpenseReport {
             reportPrintStream.println(expenseName + "\t" + expense.amount + "\t" + mealOverExpensesMarker);
         }
 
-        reportPrintStream.println("Meal expenses: " + mealExpenses);
-        reportPrintStream.println("Total expenses: " + total);
+        reportPrintStream.println("Meal expenses: " + expensesCalculation.mealExpenses);
+        reportPrintStream.println("Total expenses: " + expensesCalculation.total);
     }
 }

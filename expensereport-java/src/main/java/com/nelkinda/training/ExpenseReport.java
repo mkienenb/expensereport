@@ -54,8 +54,7 @@ public class ExpenseReport {
 
     public String generateReportContent(List<Expense> expenses, Date reportDate) {
         ExpensesCalculation expensesCalculation = calculateExpenses(expenses);
-        String reportContent = generateReport(expenses, reportDate, expensesCalculation);
-        return reportContent;
+        return generateReport(expenses, reportDate, expensesCalculation);
     }
 
     private String generateReport(List<Expense> expenses, Date reportDate, ExpensesCalculation expensesCalculation) {
